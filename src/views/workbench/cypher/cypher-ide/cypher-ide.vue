@@ -115,6 +115,8 @@ export default class WorkbenchCypherIde extends Vue {
             this.cypherCodeMirror.closeHint()
             this.cypherCodeMirror.showHint()
         })
+        // this.getCypher()
+        this.autoGetCypher()
     }
     handleShowHint() {
         // const codeMirrorInstance = dom.getCodeMirrorInstance();
@@ -147,6 +149,7 @@ export default class WorkbenchCypherIde extends Vue {
     }
     async getCypher() {
         if (!this.query) {
+            console.log('getCypher')
             this.query = true
             let cypher = this.cypherCodeMirror.getValue()
             this.cypherStore.upDateCurrentCypher(cypher)
@@ -156,6 +159,17 @@ export default class WorkbenchCypherIde extends Vue {
             console.log(res)
             this.query = false
         }
+    }
+    async autoGetCypher() {
+        // 获取 URL 中的查询参数
+        let name = this.$route.query.name || '法国总统马克龙访问中山大学' // 如果 URL 中没有 'graph' 参数，则默认为 'eventgraph'
+
+        let cypher = "MATCH (an:抽象事件)-[]-(n:事件)-[*0..3]-(e)WHERE an.name = '" + name + "' RETURN an,n,e"
+        this.cypherStore.upDateCurrentCypher(cypher)
+        let id = new Date().getTime() + ''
+        this.cypherStore.tabAdd({ id: id, graph: 'eventgraph1' })
+        let res = await this.cypherStore.queryByCypher({ graph: 'eventgraph1', script: cypher, tabValue: id })
+        console.log(res)
     }
     ctrlEnter(e) {
         if (e.ctrlKey && e.key === 'Enter') {

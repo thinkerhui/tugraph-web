@@ -391,7 +391,7 @@ export default class WorkbenchCypher extends Vue {
     &.layout1,
     &.layout3 {
         .workbench-cypher-input {
-            height: 320px;
+            height: 0px;
         }
         .workbench-cypher-output {
             height: calc(100% - 320px);

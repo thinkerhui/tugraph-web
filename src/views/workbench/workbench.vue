@@ -22,10 +22,10 @@
             </section>
         </section>
         <section class="workbench-container">
-            <article class="workbench-container-header">
+            <!-- <article class="workbench-container-header">
                 <div class="workbench-menu-btn" :class="hideMenu ? 'right' : 'left'" @click="hideMenu = !hideMenu"></div>
                 <SubGraphManage></SubGraphManage>
-            </article>
+            </article> -->
             <article class="workbench-container-body">
                 <router-view></router-view>
             </article>
@@ -60,7 +60,7 @@ export default class Workbench extends Vue {
     cypherStore: CypherStore = getModule(CypherStore, store)
     showUserLogoutPanel: boolean = false
     showChagePwd: boolean = false
-    hideMenu: boolean = false
+    hideMenu: boolean = true
     get currentSelectedGraph() {
         return this.subGraphManageStore.selectedSubGraph
     }
@@ -68,10 +68,10 @@ export default class Workbench extends Vue {
         return this.userLoginStore.userName
     }
     created() {
-        // this.currentSelectedGraph &&
-        //     this.createLabelStore.getAllLabel({
-        //         graph: this.currentSelectedGraph
-        //     })
+        this.currentSelectedGraph &&
+            this.createLabelStore.getAllLabel({
+                graph: this.currentSelectedGraph
+            })
     }
     @Watch('currentSelectedGraph')
     onChangeCurrentSelectedGraph() {

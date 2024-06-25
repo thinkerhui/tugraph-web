@@ -9,7 +9,7 @@ interface SubGraphList {
 @Module({ name: 'SubGraphManage' })
 export default class SubGraphManage extends VuexModule {
     subGraphList: SubGraphList = {}
-    selectedSubGraph: string = ''
+    selectedSubGraph: string = 'eventgraph1'
     selectedSubGraphDesc: string = ''
     allSubGraphList: any = []
     @Mutation
